@@ -4,6 +4,15 @@ public class ProprietarioModal {
     private String email;
     private String telefone;
 
+    public ProprietarioModal(String email, String telefone){
+        this.email = email;
+        this.telefone = telefone;
+    }
+
+    public ProprietarioModal(){
+
+    }
+
     public String getTelefone() {
         return telefone;
     }

@@ -31,4 +31,26 @@ public class ViagemController {
         }
     }
 
+    // Método para buscar uma viagem por data
+    public void buscarViagemPorData(Date data) {
+        Viagem viagem = viagemDAO.buscarViagem(data);
+        if (viagem != null) {
+            System.out.println("Viagem encontrada:");
+            System.out.println("Data: " + viagem.getData() +
+                               ", Hora Partida: " + viagem.getHoraPartida() +
+                               ", Hora Chegada: " + viagem.getHoraChegada());
+        } else {
+            System.out.println("Nenhuma viagem encontrada para a data: " + data);
+        }
+    }
+
+    // Método para excluir uma viagem pelo ID
+    public void excluirViagemPorId(int id_viagem) {
+        boolean sucesso = viagemDAO.excluirViagem(id_viagem);
+        if (sucesso) {
+            System.out.println("Viagem com ID " + id_viagem + " foi excluída com sucesso.");
+        } else {
+            System.out.println("Erro ao excluir viagem com ID " + id_viagem + ". Verifique se o ID existe.");
+        }
+    }
 }

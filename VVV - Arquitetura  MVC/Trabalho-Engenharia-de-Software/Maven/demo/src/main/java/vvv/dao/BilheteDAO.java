@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BilheteDAO {
-    private static final String URL = "jdbc:mysql://localhost:3306/nomedobanco";  // Substitua pelo nome do seu banco
+    private static final String URL = "jdbc:mysql://localhost:3306/db_vvv";  // Substitua pelo nome do seu banco
     private static final String USER = "root";  // Substitua pelo seu usuário do MySQL
     private static final String PASSWORD = "senha";  // Substitua pela sua senha do MySQL
 
@@ -46,4 +46,36 @@ public class BilheteDAO {
         }
         return bilhetes;
     }
+
+        // Método para buscar um bilhete pelo ID
+        public Bilhete buscarBilhete(int id_bilhete) {
+            String sql = "SELECT * FROM bilhete WHERE id_bilhete = ?";
+            try (Connection conn = conectar(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+                stmt.setInt(1, id_bilhete);
+                ResultSet rs = stmt.executeQuery();
+    
+                if (rs.next()) {
+                    Bilhete bilhete = new Bilhete();
+                    bilhete.setDataEmissao(rs.getDate("data_emissao"));
+                    return bilhete;
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return null; // Retorna null se não encontrar o bilhete
+        }
+    
+        // Método para excluir um bilhete pelo ID
+        public boolean excluirBilhete(int id_bilhete) {
+            String sql = "DELETE FROM bilhete WHERE id_bilhete = ?";
+            try (Connection conn = conectar(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+                stmt.setInt(1, id_bilhete);
+                int rowsAffected = stmt.executeUpdate();
+                return rowsAffected > 0; // Retorna true se o bilhete foi excluído com sucesso
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+    
 }

@@ -2,8 +2,8 @@ package vvv.model;
 
 public class Gerente extends Funcionario {
 
-    public Gerente(String nome, String email, String senha, int id) {
-        super(nome, email, senha, id);
+    public Gerente(String nome, String email, String senha, double totalVendas) {
+        super(nome, email, senha, totalVendas);
     }
 
     public void registrarVenda() {

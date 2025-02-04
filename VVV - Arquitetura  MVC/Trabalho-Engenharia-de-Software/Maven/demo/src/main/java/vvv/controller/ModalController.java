@@ -34,4 +34,28 @@ public class ModalController {
         }
     }
 
+ // Método para buscar um Modal pelo id
+    public void buscarModal(int id) {
+        Modal modal = modalDAO.buscarModal(id);
+        if (modal != null) {
+            System.out.println("Modal encontrado:");
+            System.out.println("Proprietário ID: " + modal.getIdProprietario() +
+                               ", Capacidade: " + modal.getCapacidade() +
+                               ", Tipo: " + modal.getTipo() +
+                               ", Categoria: " + modal.getCategoria() +
+                               ", Marca: " + modal.getMarca());
+        } else {
+            System.out.println("Modal não encontrado.");
+        }
+    }
+
+    // Método para excluir um Modal pelo id
+    public void excluirModal(int id) {
+        boolean excluido = modalDAO.excluirModal(id);
+        if (excluido) {
+            System.out.println("Modal com ID " + id + " excluído com sucesso.");
+        } else {
+            System.out.println("Erro ao excluir o Modal com ID " + id);
+        }
+    }
 }

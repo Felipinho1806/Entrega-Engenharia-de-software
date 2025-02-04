@@ -9,6 +9,12 @@ public class PontoDeVendas {
 
     }
 
+    public PontoDeVendas(String nome, String endereco, String telefone) {
+        this.nome = nome;
+        this.endereco = endereco;
+        this.telefone = telefone;
+    }
+
     public String getTelefone() {
         return telefone;
     }

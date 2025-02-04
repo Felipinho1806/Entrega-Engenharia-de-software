@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ModalDAO {
-    private static final String URL = "jdbc:mysql://localhost:3306/nomedobanco";  // Substitua pelo nome do seu banco
+    private static final String URL = "jdbc:mysql://localhost:3306/db_vvv";  // Substitua pelo nome do seu banco
     private static final String USER = "root";  // Substitua pelo seu usuário do MySQL
     private static final String PASSWORD = "senha";  // Substitua pela sua senha do MySQL
 
@@ -58,4 +58,44 @@ public class ModalDAO {
         }
         return modais;
     }
+
+        // Método para buscar um Modal pelo id
+        public Modal buscarModal(int id_modal) {
+            String sql = "SELECT * FROM modal WHERE id_modal = ?";
+            Modal modal = null;
+            
+            try (Connection conn = conectar(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+                stmt.setInt(1, id_modal);
+                ResultSet rs = stmt.executeQuery();
+                
+                if (rs.next()) {
+                    modal = new Modal();
+                    modal.setIdProprietario(rs.getInt("idProprietario"));
+                    modal.setCapacidade(rs.getInt("capacidade"));
+                    modal.setTipo(rs.getString("tipo"));
+                    modal.setCategoria(rs.getString("categoria"));
+                    modal.setMarca(rs.getString("marca"));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return modal;
+        }
+    
+        // Método para excluir um Modal pelo id
+        public boolean excluirModal(int id_modal) {
+            String sql = "DELETE FROM modal WHERE id_modal = ?";
+            boolean excluido = false;
+            
+            try (Connection conn = conectar(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+                stmt.setInt(1, id_modal);
+                int rowsAffected = stmt.executeUpdate();
+                if (rowsAffected > 0) {
+                    excluido = true;
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return excluido;
+        }
 }

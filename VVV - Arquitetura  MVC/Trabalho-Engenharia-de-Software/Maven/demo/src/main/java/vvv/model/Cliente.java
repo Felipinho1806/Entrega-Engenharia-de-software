@@ -1,17 +1,19 @@
 package vvv.model;
 
 public class Cliente extends Usuario {
-    private int cpf;
+    private String cpf;
     private String telefone;
 
-    public Cliente (String nome, String email, String senha, int id) {
-        super(nome, email, senha, id);
+    public Cliente (String nome, String email, String senha, String cpf, String telefone) {
+        super(nome, email, senha);
+        this.cpf = cpf;  
+        this.telefone = telefone;
     }
     public Cliente() {
         
     }
 
-    public int getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
