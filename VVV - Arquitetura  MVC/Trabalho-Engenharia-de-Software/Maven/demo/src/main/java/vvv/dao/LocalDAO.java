@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LocalDAO {
-    private static final String URL = "jdbc:mysql://localhost:3306/nomedobanco";  // Substitua pelo nome do seu banco
+    private static final String URL = "jdbc:mysql://localhost:3306/db_vvv";  // Substitua pelo nome do seu banco
     private static final String USER = "root";  // Substitua pelo seu usuário do MySQL
     private static final String PASSWORD = "senha";  // Substitua pela sua senha do MySQL
 
@@ -48,5 +48,42 @@ public class LocalDAO {
             e.printStackTrace();
         }
         return locais;
+    }
+
+    // Método para buscar um Local pelo nome
+    public Local buscarLocal(String nome) {
+        String sql = "SELECT * FROM local WHERE nome = ?";
+        Local local = null;
+        
+        try (Connection conn = conectar(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, nome);
+            ResultSet rs = stmt.executeQuery();
+            
+            if (rs.next()) {
+                local = new Local();
+                local.setNome(rs.getString("nome"));
+                local.setEndereco(rs.getString("endereco"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return local;
+    }
+
+    // Método para excluir um Local pelo nome
+    public boolean excluirLocal(String nome) {
+        String sql = "DELETE FROM local WHERE nome = ?";
+        boolean excluido = false;
+        
+        try (Connection conn = conectar(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, nome);
+            int rowsAffected = stmt.executeUpdate();
+            if (rowsAffected > 0) {
+                excluido = true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return excluido;
     }
 }

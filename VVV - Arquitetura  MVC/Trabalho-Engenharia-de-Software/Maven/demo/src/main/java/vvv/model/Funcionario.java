@@ -1,14 +1,23 @@
 package vvv.model;
 
 public class Funcionario extends Usuario {
+    private double totalVendas;
 
-    
-    public Funcionario(String nome, String email, String senha, int id) {
-        super(nome, email, senha, id);
+     public Funcionario(String nome, String email, String senha, double totalVendas) {
+        super(nome, email, senha);
+        this.totalVendas = totalVendas;
     }
     public Funcionario(){
         
     }
+    
+    public double getTotalVendas() {
+        return totalVendas;
+    }
+    public void setTotalVendas(double totalVendas) {
+        this.totalVendas = totalVendas;
+    }
+   
 
     public void realizarVenda() {
         System.out.println("Venda realizada pelo funcionário: " + getNome());

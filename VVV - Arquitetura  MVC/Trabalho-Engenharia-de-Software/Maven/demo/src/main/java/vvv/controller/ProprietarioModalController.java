@@ -28,4 +28,24 @@ public class ProprietarioModalController {
         }
     }
 
+    // Método para buscar um ProprietarioModal pelo email
+    public void buscarProprietario(String email) {
+        ProprietarioModal proprietario = proprietarioModalDAO.buscarProprietario(email);
+        if (proprietario != null) {
+            System.out.println("Proprietário encontrado:");
+            System.out.println("Email: " + proprietario.getEmail() +
+                                ", Telefone: " + proprietario.getTelefone());
+        } else {
+            System.out.println("Proprietário não encontrado.");
+        }
+    }
+    
+    public void excluirProprietario(String email) {
+        boolean excluido = proprietarioModalDAO.excluirProprietario(email);
+        if (excluido) {
+            System.out.println("Proprietário com email " + email + " excluído com sucesso.");
+        } else {
+            System.out.println("Erro ao excluir o Proprietário com email " + email);
+        }
+    }
 }

@@ -15,9 +15,9 @@ public class UsuarioDAO {
         }
     }
 
-    public Usuario buscarUsuarioPorEmail(String email) {
+    public Usuario buscarUsuario(String email) {
         try {
-            String sql = "SELECT * FROM usuarios WHERE email = ?";
+            String sql = "SELECT * FROM usuario WHERE email = ?";
             PreparedStatement stmt = conexao.prepareStatement(sql);
             stmt.setString(1, email);
 
@@ -26,8 +26,7 @@ public class UsuarioDAO {
                 return new Usuario(
                     rs.getString("nome"),
                     rs.getString("email"),
-                    rs.getString("senha"),
-                    rs.getInt("id")
+                    rs.getString("senha")
                 );
             }
         } catch (SQLException e) {
@@ -38,7 +37,7 @@ public class UsuarioDAO {
 
     public boolean inserirUsuario(Usuario usuario) {
         try {
-            String sql = "INSERT INTO usuarios (nome, email, senha) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO usuario (nome, email, senha) VALUES (?, ?, ?)";
             PreparedStatement stmt = conexao.prepareStatement(sql);
             stmt.setString(1, usuario.getNome());
             stmt.setString(2, usuario.getEmail());
@@ -51,4 +50,19 @@ public class UsuarioDAO {
             return false;
         }
     }
+
+    public boolean excluirUsuario(int id_usuario) {
+        try {
+            String sql = "DELETE FROM usuario WHERE id_usuario = ?";
+            PreparedStatement stmt = conexao.prepareStatement(sql);
+            stmt.setInt(1, id_usuario);
+
+            int linhasAfetadas = stmt.executeUpdate();
+            return linhasAfetadas > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 }

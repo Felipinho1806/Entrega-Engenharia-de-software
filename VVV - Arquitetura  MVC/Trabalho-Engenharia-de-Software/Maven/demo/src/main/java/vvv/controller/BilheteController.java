@@ -27,4 +27,24 @@ public class BilheteController {
         }
     }
 
+    // Método para buscar um Bilhete por ID
+    public void buscarBilhete(int id_bilhete) {
+        Bilhete bilhete = bilheteDAO.buscarBilhete(id_bilhete);
+        if (bilhete != null) {
+            System.out.println("Bilhete encontrado:");
+            System.out.println("Data de Emissão: " + bilhete.getDataEmissao());
+        } else {
+            System.out.println("Bilhete com ID " + id_bilhete + " não encontrado.");
+        }
+    }
+
+    // Método para excluir um Bilhete por ID
+    public void excluirBilhetePorId(int id_bilhete) {
+        boolean sucesso = bilheteDAO.excluirBilhete(id_bilhete);
+        if (sucesso) {
+            System.out.println("Bilhete com ID " + id_bilhete + " excluído com sucesso.");
+        } else {
+            System.out.println("Erro ao excluir bilhete com ID " + id_bilhete + ". Ele pode não existir.");
+        }
+    }
 }

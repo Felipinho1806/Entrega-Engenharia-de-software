@@ -1,5 +1,8 @@
 package vvv.controller;
 import vvv.model.Usuario;
+
+import java.util.List;
+
 import vvv.dao.UsuarioDAO;
 
 public class UsuarioController {
@@ -9,7 +12,7 @@ public class UsuarioController {
     public boolean logar(String email, String senha) {
         
         UsuarioDAO usuarioDAO = new UsuarioDAO();
-        Usuario usuario = usuarioDAO.buscarUsuarioPorEmail(email);
+        Usuario usuario = usuarioDAO.buscarUsuario(email);
 
         if (usuario != null && usuario.getSenha().equals(senha)) {
             this.usuarioLogado = usuario;
@@ -32,7 +35,7 @@ public class UsuarioController {
 
     public boolean cadastrarCliente(String nome, String email, String senha) {
         UsuarioDAO usuarioDAO = new UsuarioDAO();
-        boolean sucesso = usuarioDAO.inserirUsuario(new Usuario(nome, email, senha, 0));
+        boolean sucesso = usuarioDAO.inserirUsuario(new Usuario(nome, email, senha));
 
         if (sucesso) {
             System.out.println("Cliente cadastrado com sucesso!");
@@ -58,4 +61,17 @@ public class UsuarioController {
     public Usuario getUsuarioLogado() {
         return usuarioLogado;
     }
+
+
+    // Método para excluir um usuário pelo ID
+    public void excluirUsuarioPorId(int id) {
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        boolean sucesso = usuarioDAO.excluirUsuario(id);
+
+        if (sucesso) {
+            System.out.println("Usuário com ID " + id + " foi excluído com sucesso.");
+        } else {
+            System.out.println("Erro ao excluir usuário com ID " + id + ". Verifique se o ID existe.");
+        }
+    }    
 }

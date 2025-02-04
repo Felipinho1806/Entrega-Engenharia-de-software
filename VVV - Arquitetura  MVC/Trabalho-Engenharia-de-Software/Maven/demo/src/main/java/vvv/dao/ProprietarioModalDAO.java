@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProprietarioModalDAO {
-    private static final String URL = "jdbc:mysql://localhost:3306/nomedobanco";  // Substitua pelo nome do seu banco
+    private static final String URL = "jdbc:mysql://localhost:3306/db_vvv";  // Substitua pelo nome do seu banco
     private static final String USER = "root";  // Substitua pelo seu usuário do MySQL
     private static final String PASSWORD = "senha";  // Substitua pela sua senha do MySQL
 
@@ -49,5 +49,42 @@ public class ProprietarioModalDAO {
             e.printStackTrace();
         }
         return proprietarios;
+    }
+
+    // Método para buscar um ProprietarioModal pelo email
+    public ProprietarioModal buscarProprietario(String email) {
+        String sql = "SELECT * FROM proprietarioModal WHERE email = ?";
+        ProprietarioModal proprietario = null;
+        
+        try (Connection conn = conectar(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
+            
+            if (rs.next()) {
+                proprietario = new ProprietarioModal();
+                proprietario.setEmail(rs.getString("email"));
+                proprietario.setTelefone(rs.getString("telefone"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return proprietario;
+    }
+
+    // Método para excluir um ProprietarioModal pelo email
+    public boolean excluirProprietario(String email) {
+        String sql = "DELETE FROM proprietarioModal WHERE email = ?";
+        boolean excluido = false;
+        
+        try (Connection conn = conectar(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, email);
+            int rowsAffected = stmt.executeUpdate();
+            if (rowsAffected > 0) {
+                excluido = true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return excluido;
     }
 }

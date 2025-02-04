@@ -21,4 +21,14 @@ public class ClienteController {
             System.out.println(cliente);
         }
     }
+
+    public Cliente buscarClientePorEmail(String email) {
+        Cliente cliente = clienteDAO.buscarClientePorEmail(email);
+        if (cliente != null) {
+            System.out.println("Cliente encontrado: " + cliente);
+        } else {
+            System.out.println("Cliente não encontrado.");
+        }
+        return cliente;
+    }
 }
