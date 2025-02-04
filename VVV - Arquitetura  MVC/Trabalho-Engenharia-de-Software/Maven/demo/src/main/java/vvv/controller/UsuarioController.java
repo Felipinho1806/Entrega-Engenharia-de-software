@@ -1,8 +1,6 @@
 package vvv.controller;
 import vvv.model.Usuario;
 
-import java.util.List;
-
 import vvv.dao.UsuarioDAO;
 
 public class UsuarioController {
